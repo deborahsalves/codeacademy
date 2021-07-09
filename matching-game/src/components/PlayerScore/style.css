@@ -1,0 +1,27 @@
+.player-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 130px;
+    height: 20px;
+}
+
+.player-name {
+    display: inline-flex;
+    color: #FFFCEE;
+}
+
+.score-total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 42px;
+    height: 14px;
+}
+
+.score-point {
+    display: inline-flex;
+    width: 14px;
+    height: 14px;
+    border: 1px solid var(--color-floral-white);
+}
