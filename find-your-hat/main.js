@@ -128,6 +128,37 @@ class Field {
         }
     }
 
+    static generateField(w, h, percent) {
+        let randomField = []; // assembles columns into rows to build field
+        // picks a spot to put the hat
+        let hatX = Math.floor(Math.random() * (w-1));
+        let hatY = Math.floor(Math.random() * (h-1));
+        for (let i = 0; i < h; i++) { // creates a row array (y pos)
+            let aColumn = [];
+            for (let j = 0; j < w; j++) { // creates each element of column to-be array (x pos)
+                let aTile;
+                if (i === 0 && j === 0) { // element at [0,0] is the starting point
+                    aTile = pathCharacter;
+                } else if (i === hatY && j === hatX) { // skips pos at which the hat was placed
+                    aTile = hat;
+                } else { // fills other tiles of the field
+                    let randIndex = Math.floor(Math.random() * 2)
+                    switch(randIndex) {
+                        case 0:
+                            aTile = hole;
+                            break;
+                        case 1:
+                            aTile = fieldCharacter;
+                            break;
+                    }
+                }
+                aColumn.push(aTile);
+            }
+            randomField.push(aColumn);
+        }
+        return randomField;
+    }
+
 }
 
 const startGame = (fieldArr) => {
@@ -152,4 +183,9 @@ let anotherField = [[pathCharacter, fieldCharacter, fieldCharacter],
                     ];
 
 //startGame(aField);
-startGame(anotherField);
+//startGame(anotherField);
+let yetAnotherField = Field.generateField(4,4);
+const myOtherField = new Field(yetAnotherField)
+myOtherField.print()
+
+
