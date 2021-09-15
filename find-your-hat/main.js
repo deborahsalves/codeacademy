@@ -20,7 +20,6 @@ class Field {
     }
 
     set field(arr) {
-        console.log('calls set field')
         this._field = '';   // reset field to rebuild based on current arr
         for (let i = 0; i < this.numberOfrows; i++) {
             for (let j = 0; j < this.numberOfcolumns; j++){
@@ -34,7 +33,6 @@ class Field {
 
     // builds field based on previous user moves
     currentField(positionArr){
-        console.log('calls currentField()')
         let currentArr = this.originalArr;  // copied original arr
         positionArr.forEach((position) => { // gets each previous position to retrace steps
             let x = position[1];
@@ -57,7 +55,6 @@ class Field {
 
     // calculates new position based on user choice
     currentPosition(direction) {
-        console.log('calls currentPosition()')
         switch(direction) {
             case 'D':
                 this._currentPosition[1] += 1;
@@ -81,7 +78,6 @@ class Field {
 
     // checks to see if user landed on grass, hole, hat or out of arena
     currentTerrain(arr) {
-        console.log('calls currentTerrain()')
         let x = arr[0];
         let y = arr[1];
         let ySum = (this.numberOfcolumns * y) + y;
@@ -91,7 +87,6 @@ class Field {
 
     // moves the player onto their chosen tile
     makeMove(direction) {
-        console.log('calls makeMove()')
         let pos = this.currentPosition(direction);
         let promptMessages = ['Where to? ', 'Oops, you\'ve stepped out of the arena, you loose :( ', 'Oops, you fell on a hole, you loose :( ', 'You found your hat, you win! :) '];
         let choosePrompt;
@@ -119,7 +114,6 @@ class Field {
 
     // prints starting/current field
     print() {
-        console.log('calls print')
         if (!this._field) {
             this.field = this.originalArr;
             console.log(this._field);
@@ -128,6 +122,7 @@ class Field {
         }
     }
 
+    // generates a random field based on given width and height
     static generateField(w, h, percent) {
         let randomField = []; // assembles columns into rows to build field
         // picks a spot to put the hat
@@ -159,33 +154,16 @@ class Field {
         return randomField;
     }
 
+
 }
 
 const startGame = (fieldArr) => {
-    console.log('calls startGama()')
     const myField = new Field(fieldArr);
     myField.print();
     let nextMove = prompt('Where to? ').toUpperCase()
     myField.makeMove(nextMove);
 }
 
-
-/*** PLAYABLE ****/
-
-let aField = [['*', '░', 'O'],
-            ['░', 'O', '░'],
-            ['░', '^', '░'],
-                            ];
-
-let anotherField = [[pathCharacter, fieldCharacter, fieldCharacter],
-                    [fieldCharacter, hole, hole],
-                    [fieldCharacter, hat, fieldCharacter],
-                    ];
-
-//startGame(aField);
-//startGame(anotherField);
-let yetAnotherField = Field.generateField(4,4);
-const myOtherField = new Field(yetAnotherField)
-myOtherField.print()
+startGame(Field.generateField(4,4));
 
 
